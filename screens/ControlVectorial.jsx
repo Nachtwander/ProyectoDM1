@@ -76,7 +76,7 @@ export const ControlVectorial = () => {
             onChangeText={(text) => setNombreComunidad(text)}
           />
         </View>
-        <Text style={styles.titleInput}>Numero de Casas Programadas:</Text>
+        <Text style={styles.titleInput}>Número de Casas Programadas:</Text>
         <View style={styles.inputContainer}>
           <TextInput
             style={styles.input}
@@ -86,7 +86,7 @@ export const ControlVectorial = () => {
             onChangeText={(text) => setNumeroCasasProgramadas(text)}
           />
         </View>
-        <Text style={styles.titleInput}>Numero de Casas Tratadas:</Text>
+        <Text style={styles.titleInput}>Número de Casas Tratadas:</Text>
         <View style={styles.inputContainer}>
           <TextInput
             style={styles.input}
@@ -96,7 +96,7 @@ export const ControlVectorial = () => {
             onChangeText={(text) => setNumeroCasasTratadas(text)}
           />
         </View>
-        <Text style={styles.titleInput}>Numero de Casas Positivas:</Text>
+        <Text style={styles.titleInput}>Número de Casas Positivas:</Text>
         <View style={styles.inputContainer}>
           <TextInput
             style={styles.input}
@@ -106,7 +106,7 @@ export const ControlVectorial = () => {
             onChangeText={(text) => setNumeroCasasPositivas(text)}
           />
         </View>
-        <Text style={styles.titleInput}>Numero de Casas Negativas:</Text>
+        <Text style={styles.titleInput}>Número de Casas Negativas:</Text>
         <View style={styles.inputContainer}>
           <TextInput
             style={styles.input}
@@ -116,7 +116,7 @@ export const ControlVectorial = () => {
             onChangeText={(text) => setNumeroCasasNegativas(text)}
           />
         </View>
-        <Text style={styles.titleInput}>Numero de Recipientes de Agua Positivos:</Text>
+        <Text style={styles.titleInput}>Número de Recipientes de Agua Positivos:</Text>
         <View style={styles.inputContainer}>
           <TextInput
             style={styles.input}
@@ -126,7 +126,7 @@ export const ControlVectorial = () => {
             onChangeText={(text) => setNumeroRecipientesPositivos(text)}
           />
         </View>
-        <Text style={styles.titleInput}>Numero de Recipientes de Agua Negativos:</Text>
+        <Text style={styles.titleInput}>Número de Recipientes de Agua Negativos:</Text>
         <View style={styles.inputContainer}>
           <TextInput
             style={styles.input}
@@ -140,7 +140,7 @@ export const ControlVectorial = () => {
           style={[styles.buttonPrimary, { backgroundColor: '#F67280' }]}
           onPress={Botonfunciona}
         >
-          <Text style={styles.buttonText}>Calcular Indices</Text>
+          <Text style={styles.buttonText}>Calcular Índices</Text>
         </TouchableOpacity>
       </View>
       

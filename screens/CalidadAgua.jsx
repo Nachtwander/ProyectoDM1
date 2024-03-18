@@ -58,7 +58,7 @@ export const CalidadAgua = () => {
           />
         </View>
 
-        <Text style={styles.titleInput}>Numero de Casa:</Text>
+        <Text style={styles.titleInput}>Número de Casa:</Text>
         <View style={styles.inputContainer}>
           <TextInput
             style={styles.input}

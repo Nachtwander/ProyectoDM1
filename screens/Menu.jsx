@@ -14,8 +14,12 @@ export const Menu = () => {
     navigation.navigate('Calidad del Agua');
   };
 
-  const goToRegistro = () => {
-    navigation.navigate('Registro');
+  const goToRegistroCV = () => {
+    navigation.navigate('RegistroCV');
+  };
+
+  const goToRegistroCA = () => {
+    navigation.navigate('RegistroCA');
   };
 
   return (
@@ -40,9 +44,16 @@ export const Menu = () => {
 
       <TouchableOpacity
         style={[styles.button, { backgroundColor: '#F67280' }]}
-        onPress={goToRegistro}
+        onPress={goToRegistroCV}
       >
-        <Text style={styles.buttonText}>Registro</Text>
+        <Text style={styles.buttonText}>Registro Control Vectorial</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={[styles.button, { backgroundColor: '#F67280' }]}
+        onPress={goToRegistroCA}
+      >
+        <Text style={styles.buttonText}>Registro Calidad del Agua</Text>
       </TouchableOpacity>
     </View>
   );

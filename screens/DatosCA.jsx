@@ -1,19 +1,19 @@
-// DatosCA.jsx
-
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TextInput, ScrollView, Image, TouchableOpacity, Alert } from 'react-native';
 import { useRoute, useNavigation } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const DatosCA = () => {
   const route = useRoute();
   const navigation = useNavigation();
   const {
+    id,
     nombreComunidad,
     numeroCasa,
     cloroResidual,
     phResidual,
-    image, // Agregar imagen 1
-    image2, // Agregar imagen 2
+    image,
+    image2,
   } = route.params;
 
   const [cloroBackgroundColor, setCloroBackgroundColor] = useState('white');
@@ -54,6 +54,25 @@ export const DatosCA = () => {
     Alert.alert('Cloro Residual', 'Los niveles OPTIMOS en cloro residual en mg/lts son: de 1.0 a 1.5, los niveles de ADVERTENCIA están entre 0.9-0.5 y 1.6-1.9, los niveles de PELIGRO están entre 0.4 o menos y 2.0 o más.');
   };
 
+  const handleDeleteRegistro = async () => {
+    try {
+      // Obtener los registros actuales de AsyncStorage
+      const jsonValue = await AsyncStorage.getItem('datosCA');
+      let registros = jsonValue != null ? JSON.parse(jsonValue) : [];
+      
+      // Filtrar los registros para eliminar el registro con el ID específico
+      registros = registros.filter(registro => registro.id !== id);
+
+      // Guardar los registros actualizados en AsyncStorage
+      await AsyncStorage.setItem('datosCA', JSON.stringify(registros));
+
+      // Regresar a la pantalla anterior después de borrar los datos
+      navigation.goBack();
+    } catch (error) {
+      console.error('Error al borrar los datos del registro:', error);
+    }
+  };
+
   return (
     <ScrollView>
       <View style={styles.container}>
@@ -64,7 +83,7 @@ export const DatosCA = () => {
           <TextInput style={styles.input} value={nombreComunidad} editable={false}></TextInput>
         </View>
 
-        <Text style={styles.titleInput}>Numero de Casa: </Text>
+        <Text style={styles.titleInput}>Número de Casa: </Text>
         <View style={styles.inputContainer2}>
           <TextInput style={styles.input} value={numeroCasa} editable={false}></TextInput>
         </View>
@@ -92,6 +111,10 @@ export const DatosCA = () => {
         <View style={styles.imageContainer}>
           {image2 && <Image source={{ uri: image2 }} style={styles.image} />}
         </View>
+
+        <TouchableOpacity style={[styles.buttonPrimary, { backgroundColor: '#F67280' }]} onPress={handleDeleteRegistro}>
+          <Text style={styles.deleteButtonText}>Borrar Datos</Text>
+        </TouchableOpacity>
       </View>
     </ScrollView>
   );
@@ -155,5 +178,21 @@ const styles = StyleSheet.create({
     width: 200,
     height: 200,
   },
+  buttonPrimary: {
+    width: '80%', // Ancho del botón
+    height: 70, // Alto del botón
+    marginTop: 40, // Separación entre botones
+    alignItems: 'center',
+    marginLeft: '10.6%',
+    justifyContent: 'center',
+    borderRadius: 8, // Bordes redondeados
+    
+  },
+  deleteButtonText: {
+    color: 'white',
+    fontWeight: 'bold',
+  },
 });
+
+
 

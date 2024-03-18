@@ -1,16 +1,13 @@
-// DatosCV.jsx
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, ScrollView, Alert } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useRoute, useNavigation } from '@react-navigation/native';
 
 export const DatosCV = () => {
-  
-
-  
-
   const route = useRoute();
+  const navigation = useNavigation();
   const {
+    id,
     nombreComunidad,
     numeroCasasProgramadas,
     numeroCasasTratadas,
@@ -65,7 +62,24 @@ export const DatosCV = () => {
     setIndicePosRecipientes(valorPR);
   }, [numeroRecipientesPositivos, numeroRecipientesNegativos]);
 
-  
+  const handleDeleteRegistro = async () => {
+    try {
+      // Obtener los registros actuales de AsyncStorage
+      const jsonValue = await AsyncStorage.getItem('datosCV');
+      let registros = jsonValue != null ? JSON.parse(jsonValue) : [];
+      
+      // Filtrar los registros para eliminar el registro con el ID específico
+      registros = registros.filter(registro => registro.id !== id);
+
+      // Guardar los registros actualizados en AsyncStorage
+      await AsyncStorage.setItem('datosCV', JSON.stringify(registros));
+
+      // Regresar a la pantalla anterior después de borrar los datos
+      navigation.goBack();
+    } catch (error) {
+      console.error('Error al borrar los datos del registro:', error);
+    }
+  };
 
   return (
     <ScrollView>
@@ -77,69 +91,70 @@ export const DatosCV = () => {
           <TextInput style={styles.input} value={nombreComunidad} editable={false}></TextInput>
         </View>
 
-        <Text style={styles.titleInput}>Numero de Casas Programadas: </Text>
+        <Text style={styles.titleInput}>Número de Casas Programadas: </Text>
         <View style={styles.inputContainer2}>
           <TextInput style={styles.input} value={numeroCasasProgramadas} editable={false}></TextInput>
         </View>
 
-        <Text style={styles.titleInput}>Numero de Casas Tratadas: </Text>
+        <Text style={styles.titleInput}>Número de Casas Tratadas: </Text>
         <View style={styles.inputContainer2}>
           <TextInput style={styles.input} value={numeroCasasTratadas} editable={false}></TextInput>
         </View>
 
-        <Text style={styles.titleInput}>Numero de Casas Positivas: </Text>
+        <Text style={styles.titleInput}>Número de Casas Positivas: </Text>
         <View style={styles.inputContainer2}>
           <TextInput style={styles.input} value={numeroCasasPositivas} editable={false}></TextInput>
         </View>
 
-        <Text style={styles.titleInput}>Numero de Casas Negativas: </Text>
+        <Text style={styles.titleInput}>Número de Casas Negativas: </Text>
         <View style={styles.inputContainer2}>
           <TextInput style={styles.input} value={numeroCasasNegativas} editable={false}></TextInput>
         </View>
 
-        <Text style={styles.titleInput}>Numero de Recipientes Positivos: </Text>
+        <Text style={styles.titleInput}>Número de Recipientes Positivos: </Text>
         <View style={styles.inputContainer2}>
           <TextInput style={styles.input} value={numeroRecipientesPositivos} editable={false}></TextInput>
         </View>
 
-        <Text style={styles.titleInput}>Numero de Recipientes Negativos:</Text>
+        <Text style={styles.titleInput}>Número de Recipientes Negativos:</Text>
         <View style={styles.inputContainer2}>
           <TextInput style={styles.input} value={numeroRecipientesNegativos} editable={false}></TextInput>
         </View>
 
-        <Text style={styles.titleInput}>Indice de Bretau:</Text>
+        <Text style={styles.titleInput}>Índice de Bretau:</Text>
         <View style={[styles.inputContainer, { backgroundColor: colorIndice(indiceBretau) }]}>
           <TextInput style={[styles.input, { color: 'black' }]} value={indiceBretau} editable={false}></TextInput>
         </View>
         <Text style={{ textDecorationLine: 'underline', color: '#F8B195', marginLeft: 30, marginTop: 5 }} onPress={infoBretau}>Más información sobre Indice Bretau...</Text>
 
-        <Text style={styles.titleInput}>Indice de Positividad por Casa:</Text>
+        <Text style={styles.titleInput}>Índice de Positividad por Casa:</Text>
         <View style={[styles.inputContainer, { backgroundColor: colorIndice(indicePosCasas) }]}>
           <TextInput style={[styles.input, { color: 'black' }]} value={indicePosCasas} editable={false}></TextInput>
         </View>
         <Text style={{ textDecorationLine: 'underline', color: '#F8B195', marginLeft: 30, marginTop: 5 }} onPress={infoPositividadCasas}>Más información sobre Indice de Positividad por Casas...</Text>
 
-        <Text style={styles.titleInput}>Indice de Positividad por Recipientes Agua:</Text>
+        <Text style={styles.titleInput}>Índice de Positividad por Recipientes Agua:</Text>
         <View style={[styles.inputContainer, { backgroundColor: colorIndice(indicePosRecipientes) }]}>
           <TextInput style={[styles.input, { color: 'black' }]} value={indicePosRecipientes} editable={false}></TextInput>
         </View>
         <Text style={{ textDecorationLine: 'underline', color: '#F8B195', marginLeft: 30, marginTop: 5 }} onPress={infoPositividadRecipientes}>Más información sobre Indice de Positividad por Recipientes...</Text>
 
-
-        
+        <TouchableOpacity style={[styles.buttonPrimary, { backgroundColor: '#F67280' }]} onPress={handleDeleteRegistro}>
+          <Text style={styles.deleteButtonText}>Borrar Datos</Text>
+        </TouchableOpacity>
       </View>
     </ScrollView>
   );
 };
 
 function infoBretau() {
-  Alert.alert('Indice Bretau:', 'Numero de Recipientes Positivos / Numero de Casas Tratadas (inspeccionadas) x 100');
+  Alert.alert('Índice Bretau:', 'Numero de Recipientes Positivos / Numero de Casas Tratadas (inspeccionadas) x 100');
 };
 function infoPositividadCasas() {
-  Alert.alert('Indice de Positividad por Casas:', 'Numero Casas Positivas / Numero Casas Tratadas (inspeccionadas) x 100');
+  Alert.alert('Índice de Positividad por Casas:', 'Numero Casas Positivas / Numero Casas Tratadas (inspeccionadas) x 100');
 };
 function infoPositividadRecipientes() {
-  Alert.alert('Indice Positividad de Recipientes de Agua:', 'Numero Recipientes Positivos / Recipientes Inspeccionados x 100');
+  Alert.alert('Índice Positividad de Recipientes de Agua:', 'Numero Recipientes Positivos / Recipientes Inspeccionados x 100');
 };
 
 const styles = StyleSheet.create({
@@ -187,19 +202,17 @@ const styles = StyleSheet.create({
     color: 'black',
   },
   buttonPrimary: {
-    width: '80%',
-    height: 70,
-    marginTop: 40,
+    width: '80%', // Ancho del botón
+    height: 70, // Alto del botón
+    marginTop: 40, // Separación entre botones
     alignItems: 'center',
     marginLeft: '10.6%',
     justifyContent: 'center',
-    borderRadius: 8,
+    borderRadius: 8, // Bordes redondeados
+    
   },
-  buttonText: {
-    fontSize: 18,
+  deleteButtonText: {
     color: 'white',
     fontWeight: 'bold',
   },
 });
-
-

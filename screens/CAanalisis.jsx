@@ -110,7 +110,7 @@ export const CAanalisis = () => {
       await AsyncStorage.setItem('datosCA', JSON.stringify(nuevosDatos));
 
       alert('Los datos se han guardado exitosamente.');
-      navigation.navigate('Registro');
+      navigation.navigate('RegistroCA');
     } catch (error) {
       console.error('Error al guardar los datos:', error);
       alert('Hubo un problema al guardar los datos. Por favor, intenta de nuevo.');

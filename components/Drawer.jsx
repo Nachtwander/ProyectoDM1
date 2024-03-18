@@ -2,8 +2,9 @@ import React from 'react';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { CalidadAgua } from '../screens/CalidadAgua';
 import { ControlVectorial } from '../screens/ControlVectorial';
-import { Registro } from '../screens/Registro';
+import { RegistroCV } from '../screens/RegistroCV';
 import { Menu } from '../screens/Menu';
+import { RegistroCA } from '../screens/RegistroCA';
 
 const Drawer = createDrawerNavigator();
 
@@ -45,10 +46,17 @@ export function DrawerPrincipal() {
         }}
       />
       <Drawer.Screen
-        name="Registro"
-        component={Registro}
+        name="RegistroCV"
+        component={RegistroCV}
         options={{
-          drawerLabel: 'Registro',
+          drawerLabel: 'Registro Control Vectorial',
+        }}
+      />
+      <Drawer.Screen
+        name="RegistroCA"
+        component={RegistroCA}
+        options={{
+          drawerLabel: 'Registro Calidad del Agua',
         }}
       />
     </Drawer.Navigator>

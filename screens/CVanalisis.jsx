@@ -24,7 +24,7 @@ export const CVanalisis = () => {
       indicePosCasas,
       indicePosRecipientes,
     });
-    navigation.navigate('Registro');
+    navigation.navigate('RegistroCV');
   };
 
   const route = useRoute();
